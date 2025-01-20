@@ -9,25 +9,28 @@ import Sign_Up from './components/Sign_Up'
 import Login from './components/Login'
 import User from './components/User'
 import UserList from './components/UserList'
+import ProductState from './context/ProductState'
 
 const App = () => {
   return (
     <div>
-      <Router>
-      <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about_us" element={<About_Us />} />
-          <Route path='/contact' element={< Contact/>}/>
-          <Route path='/services' element={<Services />}/>
-          <Route path='/sign_up' element={<Sign_Up />}/>
-          <Route path='/login' element={<Login />}/>
-          <Route path="/:user_Id/:userName" element={<User />} />
-          <Route path="/user" element={<UserList />} />
-        </Routes>
-      </Router>
+      <ProductState>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about_us" element={<About_Us />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/sign_up" element={<Sign_Up />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/:user_Id/:userName" element={<User />} />
+            <Route path="/user" element={<UserList />} />
+          </Routes>
+        </Router>
+      </ProductState>
     </div>
-  )
+  );
 }
 
 export default App

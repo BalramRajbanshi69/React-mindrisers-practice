@@ -8,7 +8,7 @@ const Login = () => {
     email:'',
     password:'',
   })
-  const [showPassword,setShowPassword] = useState(true);
+  const [showPassword,setShowPassword] = useState(false);
   const handleChange=(e)=>{
     setCredentials({...credentials,[e.target.name]: e.target.value})
   }
