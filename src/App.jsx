@@ -13,7 +13,7 @@ import ProductState from './context/ProductState'
 
 const App = () => {
   return (
-    <div>
+    
       <ProductState>
         <Router>
           <Navbar />
@@ -29,7 +29,6 @@ const App = () => {
           </Routes>
         </Router>
       </ProductState>
-    </div>
   );
 }
 
