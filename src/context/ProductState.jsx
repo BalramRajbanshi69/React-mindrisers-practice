@@ -34,6 +34,24 @@ const ProductState = (props) => {
     },
   ];
   const [products, setProducts] = useState(initialProducts);
+  const [article,setArticle]=useState([]);
+
+  const fetchArticle = async ()=>{
+    try {
+      const response = await fetch(
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=3a2a43f36b144868a5a07cc85011d94d"
+      );
+      if(!response.ok){
+        throw new Error('api not working')
+      }
+      const data = await response.json();
+      setArticle(data.articles)
+    } catch (error) {
+      console.log(error);
+      throw new Error('internal server error') 
+    }
+ 
+  }
 
   // useEffect(()=>{
   //   setTimeout(() => {
@@ -48,7 +66,7 @@ const ProductState = (props) => {
 
   return (
     <>
-      <productContext.Provider value={{ products, setProducts }}>
+      <productContext.Provider value={{ products, setProducts,article,fetchArticle }}>
         {props.children}
       </productContext.Provider>
     </>

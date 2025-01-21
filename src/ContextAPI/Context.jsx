@@ -2,12 +2,15 @@ import React, { useContext } from 'react'
 import  ThemeContext  from '../ContextAPI/index'
 
 const Context = () => {
-  const {theme} = useContext(ThemeContext);
+  const { theme, theme1 } = useContext(ThemeContext);
   return (
     <div>
-      <h1>The color of theme is: {theme}</h1>
+      <p>
+        The color of theme is: <strong>{theme}</strong> and color of darkColor
+        is : <strong>{theme1}</strong>
+      </p>
     </div>
-  )
+  );
 }
 
 export default Context

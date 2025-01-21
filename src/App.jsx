@@ -10,8 +10,8 @@ import Login from './components/Login'
 import User from './components/User'
 import UserList from './components/UserList'
 import ProductState from './context/ProductState'
-import ThemeProvider from './ContextAPI/ThemeProvider'
-import Context from './ContextAPI/context'
+// import ThemeProvider from './ContextAPI/ThemeProvider'
+// import Context from './ContextAPI/context'
 
 
 const App = () => {
@@ -31,10 +31,12 @@ const App = () => {
             <Route path="/user" element={<UserList />} />
           </Routes>
         </Router>
-      </ProductState>
+      </ProductState> 
+      <br />
+      {/* <hr style={{height:'3px',color:'dark'}} />
       <ThemeProvider>
         <Context />
-      </ThemeProvider>
+      </ThemeProvider> */}
     </>
   );
 }
