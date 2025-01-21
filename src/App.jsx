@@ -10,10 +10,13 @@ import Login from './components/Login'
 import User from './components/User'
 import UserList from './components/UserList'
 import ProductState from './context/ProductState'
+import ThemeProvider from './ContextAPI/ThemeProvider'
+import Context from './ContextAPI/context'
+
 
 const App = () => {
   return (
-    
+    <>
       <ProductState>
         <Router>
           <Navbar />
@@ -29,6 +32,10 @@ const App = () => {
           </Routes>
         </Router>
       </ProductState>
+      <ThemeProvider>
+        <Context />
+      </ThemeProvider>
+    </>
   );
 }
 

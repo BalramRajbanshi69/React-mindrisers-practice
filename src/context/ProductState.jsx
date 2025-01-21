@@ -47,9 +47,11 @@ const ProductState = (props) => {
   // },[products])
 
   return (
-    <productContext.Provider value={{ products,setProducts}}>
-      {props.children}
-    </productContext.Provider>
+    <>
+      <productContext.Provider value={{ products, setProducts }}>
+        {props.children}
+      </productContext.Provider>
+    </>
   );
 };
 
