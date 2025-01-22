@@ -1,21 +1,20 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
-import Home from './components/Home'
-import About_Us from './components/About_Us'
-import Contact from './components/Contact'
-import Services from './components/Services'
-import Sign_Up from './components/Sign_Up'
-import Login from './components/Login'
-import User from './components/User'
-import UserList from './components/UserList'
-import ProductState from './context/ProductState'
-import FakeApi from './components/FakeApi'
-import UserProvider from './ContextUser/UserProvider'
+import React from "react";
+import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import About_Us from "./components/About_Us";
+import Contact from "./components/Contact";
+import Services from "./components/Services";
+import Sign_Up from "./components/Sign_Up";
+import Login from "./components/Login";
+import User from "./components/User";
+import UserList from "./components/UserList";
+import ProductState from "./context/ProductState";
+import FakeApi from "./components/FakeApi";
+import UserProvider from "./ContextUser/UserProvider";
 
 // import ThemeProvider from './ContextAPI/ThemeProvider'
 // import Context from './ContextAPI/context'
-
 
 // const App = () => {
 //   return (
@@ -46,7 +45,6 @@ import UserProvider from './ContextUser/UserProvider'
 //   );
 // }
 
-
 const App = () => {
   return (
     <ProductState>
@@ -67,8 +65,7 @@ const App = () => {
         </Router>
       </UserProvider>
     </ProductState>
-  )
-}
+  );
+};
 
-
-export default App
+export default App;

@@ -1,20 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import s1 from "../assets/picTwo.jpg";
-import productContext from "../context/ProductContext";
+import ProductContext from "../context/ProductContext";
 
 const About_Us = () => {
-  const { products,article,fetchArticle } = useContext(productContext);
-  console.log(article);
+  const { products,fetchArticle,article } = useContext(ProductContext);
   console.log(products);
+  console.log(article);
   
 
-  useEffect(() => {
-    fetchArticle();
-  },[fetchArticle]);
-  
-  
-  // console.log(products);
 
+useEffect(() => {
+  fetchArticle();
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
 
   return (
@@ -47,13 +45,21 @@ const About_Us = () => {
 
       <div className="container mt-4 ">
         <div className="row">
-          <div className="text-center  mb-4 border-bottom pb-2">
+          <div className="text-center  mb-4 border-bottom pb-2 ">
             <h1>Some Important Articles</h1>
           </div>
           {article &&
             article.map(
-              ({ id, urlToImage, url, description, author, publishedAt }) => (
-                <div key={id} className="col-md-4 mb-4">
+              ({
+                id,
+                author,
+                publishedAt,
+                description,
+                source: { name },
+                url,
+                urlToImage,
+              }) => (
+                <div key={id} className="col-md-4 mb-4 ">
                   <div className="card h-100 border-0 shadow">
                     <img
                       src={urlToImage || s1}
@@ -68,11 +74,13 @@ const About_Us = () => {
                       >
                         {author || <strong> KATHMANDU POST</strong>}
                       </h5>
-                      <div className="w-100 pb-2 mb-2">
-                        <p className="card-text m-0">
-                          Published: <strong>{publishedAt}</strong>
-                        </p>
-                      </div>
+                      <p>
+                        Name: <strong>{name}</strong>
+                      </p>
+                      <p>
+                        PublishedAt: <strong>{publishedAt}</strong>
+                      </p>
+
                       <p
                         className="card-text flex-grow-1"
                         style={{
@@ -86,16 +94,9 @@ const About_Us = () => {
                         {description ||
                           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ducimus velit, beatae nisi cum saepe facilis ipsa cupiditate sunt animi neque omnis accusantium pariatur et commodi quos exercitationem, dolorum inventore at ratione ut nobis."}
                       </p>
-                      <div className="mt-auto">
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="btn btn-success w-100"
-                        >
-                          View Details
-                        </a>
-                      </div>
+                      <a  href={url} className="btn btn-primary w-100" target="_blank" rel="noreferrer">
+                        View <strong>{name}</strong> Details
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -103,6 +104,9 @@ const About_Us = () => {
             )}
         </div>
       </div>
+
+
+      
     </>
   );
 };

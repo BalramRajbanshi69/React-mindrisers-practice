@@ -1,6 +1,7 @@
+
 import React, { useState } from "react";
-import PropTypes from 'prop-types'
-import productContext from "../context/ProductContext";
+import PropTypes from "prop-types";
+import ProductContext from "../context/ProductContext";
 
 const ProductState = (props) => {
   const initialProducts = [
@@ -34,47 +35,45 @@ const ProductState = (props) => {
     },
   ];
   const [products, setProducts] = useState(initialProducts);
-  const [article,setArticle]=useState([]);
+  const [article, setArticle] = useState([]);
 
-  const fetchArticle = async ()=>{
+
+  // fetching article api
+  const fetchArticle = async () => {
     try {
       const response = await fetch(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=3a2a43f36b144868a5a07cc85011d94d"
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=d125d26fbc6d49728775e0b977bddc5a"
       );
-      if(!response.ok){
-        throw new Error('api not working')
+      if (!response.ok) {
+        throw new Error("Api not working");
       }
       const data = await response.json();
-      setArticle(data.articles)
+      setArticle(data.articles);
+      console.log(data);
     } catch (error) {
       console.log(error);
-      throw new Error('internal server error') 
+      throw new Error("Something went wrong");
     }
- 
-  }
-
-  // useEffect(()=>{
-  //   setTimeout(() => {
-  //     setProducts({
-  //       name:'Cap',
-  //       price:665,
-  //       quantity:0,
-  //       description:'All sold out'
-  //     })
-  //   }, 8000);
-  // },[products])
+  };
 
   return (
     <>
-      <productContext.Provider value={{ products, setProducts,article,fetchArticle }}>
+      <ProductContext.Provider
+        value={{
+          products,
+          setProducts,
+          fetchArticle,
+          article,
+        }}
+      >
         {props.children}
-      </productContext.Provider>
+      </ProductContext.Provider>
     </>
   );
 };
 
-ProductState.propTypes={
-  children:PropTypes.node.isRequired
-}
+ProductState.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default ProductState;
