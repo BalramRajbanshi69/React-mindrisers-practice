@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import s1 from "../assets/cat-logo.jpg";
+import s1 from "../assets/picTwo.jpg";
 import productContext from "../context/ProductContext";
 
 const About_Us = () => {
@@ -54,7 +54,7 @@ const About_Us = () => {
             article.map(
               ({ id, urlToImage, url, description, author, publishedAt }) => (
                 <div key={id} className="col-md-4 mb-4">
-                  <div className="card h-100">
+                  <div className="card h-100 border-0 shadow">
                     <img
                       src={urlToImage || s1}
                       className="card-img-top w-100 h-100 "

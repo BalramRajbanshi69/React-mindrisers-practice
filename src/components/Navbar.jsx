@@ -59,6 +59,11 @@ const Navbar = () => {
                   User
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to="/api">
+                  API
+                </Link>
+              </li>
             </ul>
             <button className="btn btn-success" onClick={handleClick}>
               {toggle}
