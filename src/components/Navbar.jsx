@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { FaCartArrowDown } from "react-icons/fa";
 const Navbar = () => {
   const [toggle,setToggle] = useState('Dark Mode');
   const [theme,setTheme] = useState('light');
@@ -65,6 +66,12 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
+            <button type="button" className="btn position-relative mx-5">
+              <FaCartArrowDown size={20} color="#fb6107" />
+              <span className="position-absolute top-0 start-100 translate-middle-x badge rounded-pill bg-danger">
+                0<span className="visually-hidden">unread messages</span>
+              </span>
+            </button>
             <button className="btn btn-success" onClick={handleClick}>
               {toggle}
             </button>

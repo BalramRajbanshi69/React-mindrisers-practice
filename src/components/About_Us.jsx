@@ -6,6 +6,11 @@ const About_Us = () => {
   const { products,fetchArticle,article } = useContext(ProductContext);
   console.log(products);
   console.log(article);
+
+  const handleAddCart=()=>{
+    console.log('products are added to cart');
+    
+  }
   
 
 
@@ -34,7 +39,7 @@ useEffect(() => {
                     {" "}
                     <strong>Quantity:</strong> {quantity}
                   </p>
-                  <button className="btn btn-primary">View Details</button>
+                  <button className="btn btn-primary" onClick={handleAddCart}>View Details</button>
                 </div>
               </div>
             </div>
