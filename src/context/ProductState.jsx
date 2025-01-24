@@ -1,33 +1,33 @@
-
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import PropTypes from "prop-types";
 import ProductContext from "../context/ProductContext";
+import cartReducer from "./Reducer";
 
 const ProductState = (props) => {
   const initialProducts = [
     {
-      id: 1,
+      _id: 1,
       title: "Sweater",
       description: "This is a woolen sweater",
       price: 1300,
       quantity: 35,
     },
     {
-      id: 2,
+      _id: 2,
       title: "Jeans",
       description: "Blue jeans",
       price: 5200,
       quantity: 25,
     },
     {
-      id: 3,
+      _id: 3,
       title: "Tshirt ",
       description: "Summer Shirt",
       price: 400,
       quantity: 15,
     },
     {
-      id: 4,
+      _id: 4,
       title: "Cap ",
       description: "Summer Cap",
       price: 500,
@@ -37,23 +37,20 @@ const ProductState = (props) => {
   const [products, setProducts] = useState(initialProducts);
   const [article, setArticle] = useState([]);
 
+  // useReducer
+  const [state, dispatch] = useReducer(cartReducer, {
+    cart: [],
+    initialProducts: products,
+  });
 
   // fetching article api
   const fetchArticle = async () => {
-    try {
-      const response = await fetch(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=d125d26fbc6d49728775e0b977bddc5a"
-      );
-      if (!response.ok) {
-        throw new Error("Api not working");
-      }
-      const data = await response.json();
-      setArticle(data.articles);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-      throw new Error("Something went wrong");
-    }
+    const response = await fetch(
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=d125d26fbc6d49728775e0b977bddc5a"
+    );
+    const data = await response.json();
+    setArticle(data.articles);
+    console.log(data);
   };
 
   return (
@@ -64,6 +61,8 @@ const ProductState = (props) => {
           setProducts,
           fetchArticle,
           article,
+          state,
+          dispatch,
         }}
       >
         {props.children}

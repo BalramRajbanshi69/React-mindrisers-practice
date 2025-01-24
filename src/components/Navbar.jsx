@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {Link} from 'react-router-dom';
 import { FaCartArrowDown } from "react-icons/fa";
+import ProductContext from '../context/ProductContext';
 const Navbar = () => {
   const [toggle,setToggle] = useState('Dark Mode');
   const [theme,setTheme] = useState('light');
+  
+  //useContext to show cart items length when clicked on cart icon
+  const {state:{cart}} = useContext(ProductContext);
+
   const handleClick = ()=>{
     if(toggle === 'Dark Mode'){
       setToggle('Light Mode');
@@ -65,13 +70,29 @@ const Navbar = () => {
                   API
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to="/escuelajs">
+                  Escuelajs
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to="/reducer">
+                  UseReducer
+                </Link>
+              </li>
             </ul>
-            <button type="button" className="btn position-relative mx-5">
-              <FaCartArrowDown size={20} color="#fb6107" />
-              <span className="position-absolute top-0 start-100 translate-middle-x badge rounded-pill bg-danger">
-                0<span className="visually-hidden">unread messages</span>
-              </span>
-            </button>
+            <Link to='/cart_items'>
+              <button
+                type="button"
+                className="btn btn-primary position-relative mx-5"
+              >
+                <FaCartArrowDown size={20} />
+                <span className="position-absolute top-0 start-100 translate-middle-x badge rounded-pill bg-danger">
+                  {cart.length}
+                  <span className="visually-hidden">unread messages</span>
+                </span>
+              </button>
+            </Link>
             <button className="btn btn-success" onClick={handleClick}>
               {toggle}
             </button>

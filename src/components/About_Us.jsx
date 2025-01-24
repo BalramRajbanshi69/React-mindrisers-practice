@@ -3,14 +3,12 @@ import s1 from "../assets/picTwo.jpg";
 import ProductContext from "../context/ProductContext";
 
 const About_Us = () => {
-  const { products,fetchArticle,article } = useContext(ProductContext);
-  console.log(products);
-  console.log(article);
+  const { products,fetchArticle,article,state:{cart},dispatch } = useContext(ProductContext);
+  console.log('Product itemss:',products);
+  console.log('Article itemss:',article);
+  console.log('Carts itemss:',cart);
+  
 
-  const handleAddCart=()=>{
-    console.log('products are added to cart');
-    
-  }
   
 
 
@@ -24,22 +22,46 @@ useEffect(() => {
     <>
       <div className="container mt-4">
         <div className="row">
-          {products.map(({ id, title, description, price, quantity }) => (
-            <div key={id} className="col-md-3 mb-4">
+          {products.map((items) => (
+            <div key={items._id} className="col-md-3 mb-4">
               <div className="card">
                 <img src={s1} className="card-img-top" alt="card image" />
                 <div className="card-body">
-                  <h5 className="card-title">{title}</h5>
-                  <p className="card-text">{description}</p>
+                  <h5 className="card-title">{items.title}</h5>
+                  <p className="card-text">{items.description}</p>
                   <p className="card-text">
                     {" "}
-                    <strong>Price:</strong> ${price}
+                    <strong>Price:</strong> ${items.price}
                   </p>
                   <p className="card-text">
                     {" "}
-                    <strong>Quantity:</strong> {quantity}
+                    <strong>Quantity:</strong> {items.quantity}
                   </p>
-                  <button className="btn btn-primary" onClick={handleAddCart}>View Details</button>
+                  {cart && cart.some((p) => p._id === items._id) ? (
+                    <button
+                      className="btn btn-danger"
+                      onClick={() =>
+                        dispatch({
+                          type: "REMOVE_FROM_CART",
+                          payload: items,
+                        })
+                      }
+                    >
+                      Remove From Cart
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-primary"
+                      onClick={() =>
+                        dispatch({
+                          type: "ADD_TO_CART",
+                          payload: items,
+                        })
+                      }
+                    >
+                      Add To Cart
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -99,7 +121,12 @@ useEffect(() => {
                         {description ||
                           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ducimus velit, beatae nisi cum saepe facilis ipsa cupiditate sunt animi neque omnis accusantium pariatur et commodi quos exercitationem, dolorum inventore at ratione ut nobis."}
                       </p>
-                      <a  href={url} className="btn btn-primary w-100" target="_blank" rel="noreferrer">
+                      <a
+                        href={url}
+                        className="btn btn-primary w-100"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         View <strong>{name}</strong> Details
                       </a>
                     </div>
@@ -109,9 +136,6 @@ useEffect(() => {
             )}
         </div>
       </div>
-
-
-      
     </>
   );
 };

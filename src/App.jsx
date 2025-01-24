@@ -12,6 +12,9 @@ import UserList from "./components/UserList";
 import ProductState from "./context/ProductState";
 import FakeApi from "./components/FakeApi";
 import UserProvider from "./ContextUser/UserProvider";
+import Escuelajs from "./components/Escuelajs";
+import UseReducer from "./components/UseReducer";
+import CartItems from "./components/CartItems";
 
 // import ThemeProvider from './ContextAPI/ThemeProvider'
 // import Context from './ContextAPI/context'
@@ -61,6 +64,9 @@ const App = () => {
             <Route path="/:user_Id/:userName" element={<User />} />
             <Route path="/user" element={<UserList />} />
             <Route path="/api" element={<FakeApi />} />
+            <Route path="/escuelajs" element={<Escuelajs />} />
+            <Route path="/reducer" element={<UseReducer />} />
+            <Route path="/cart_items" element={<CartItems />} />
           </Routes>
         </Router>
       </UserProvider>
