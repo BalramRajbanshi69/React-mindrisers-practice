@@ -10,28 +10,28 @@ const ProductState = (props) => {
       title: "Sweater",
       description: "This is a woolen sweater",
       price: 1300,
-      quantity: 35,
+      inStock: 35,
     },
     {
       _id: 2,
       title: "Jeans",
       description: "Blue jeans",
       price: 5200,
-      quantity: 25,
+      inStock: 25,
     },
     {
       _id: 3,
       title: "Tshirt ",
       description: "Summer Shirt",
       price: 400,
-      quantity: 15,
+      inStock: 15,
     },
     {
       _id: 4,
       title: "Cap ",
       description: "Summer Cap",
       price: 500,
-      quantity: 5,
+      inStock: 5,
     },
   ];
   const [products, setProducts] = useState(initialProducts);

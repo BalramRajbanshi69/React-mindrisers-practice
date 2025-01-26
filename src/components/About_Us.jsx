@@ -35,7 +35,7 @@ useEffect(() => {
                   </p>
                   <p className="card-text">
                     {" "}
-                    <strong>Quantity:</strong> {items.quantity}
+                    <strong>InStock:</strong> {items.inStock}
                   </p>
                   {cart && cart.some((p) => p._id === items._id) ? (
                     <button
