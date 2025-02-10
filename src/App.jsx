@@ -15,6 +15,9 @@ import UserProvider from "./ContextUser/UserProvider";
 import Escuelajs from "./components/Escuelajs";
 import UseReducer from "./components/UseReducer";
 import CartItems from "./components/CartItems";
+import AddProduct from "./components/AddProduct";
+import { ToastContainer } from "react-toastify";
+import Toast from "./ToastComponent/Toast";
 
 // import ThemeProvider from './ContextAPI/ThemeProvider'
 // import Context from './ContextAPI/context'
@@ -54,6 +57,7 @@ const App = () => {
       <UserProvider>
         <Router>
           <Navbar />
+          <Toast />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about_us" element={<About_Us />} />
@@ -67,6 +71,7 @@ const App = () => {
             <Route path="/escuelajs" element={<Escuelajs />} />
             <Route path="/reducer" element={<UseReducer />} />
             <Route path="/cart_items" element={<CartItems />} />
+            <Route path="/addproduct" element={<AddProduct />} />
           </Routes>
         </Router>
       </UserProvider>

@@ -80,8 +80,13 @@ const Navbar = () => {
                   UseReducer
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to="/addproduct">
+                  Add Product
+                </Link>
+              </li>
             </ul>
-            <Link to='/cart_items'>
+            <Link to="/cart_items">
               <button
                 type="button"
                 className="btn btn-primary position-relative mx-5"

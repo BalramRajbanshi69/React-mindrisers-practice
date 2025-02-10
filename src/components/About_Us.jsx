@@ -1,22 +1,70 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import s1 from "../assets/picTwo.jpg";
 import ProductContext from "../context/ProductContext";
+import { BsThreeDots } from "react-icons/bs";
+import EditModal from "./EditModal";
+import {toast } from "react-toastify";
 
 const About_Us = () => {
-  const { products,fetchArticle,article,state:{cart},dispatch } = useContext(ProductContext);
-  console.log('Product itemss:',products);
-  console.log('Article itemss:',article);
-  console.log('Carts itemss:',cart);
-  
+  const {
+    products,
+    fetchArticle,
+    article,
+    state: { cart },
+    dispatch,
+    allProduct,
+    editProduct,
+    deleteProduct
+  } = useContext(ProductContext);
+  console.log("Product itemss:", products);
+  console.log("Article itemss:", article);
+  console.log("Carts itemss:", cart);
+
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [modelVisible, setModelVisible] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const showAddNotification =()=> toast.success('Added Cart Successfully');
+  const showRemoveNotification =()=> toast.error('Removed Cart Successfully');
+
+  const handleMenu = (id) => {
+    setMenuVisible((prevMenu) => ({
+      ...prevMenu,
+      [id]: !prevMenu[id],
+    }));
+  };
+
+  const OpenEditModal = (prod) => {
+    setModelVisible(true);
+    setSelectedProduct(prod);
+  };
+
+  const EditCloseModal = () => {
+    setModelVisible(false);
+    setSelectedProduct(null);
+  };
+
+  const EditSave = (updatedData) => {
+    console.log("save changing or changed");
+    editProduct(selectedProduct._id, updatedData);
+  };
+
+  const handleDeleteMenu = async(id) => {
+    console.log("deleting products");
+    await deleteProduct(id);
+  };
+
+  useEffect(() => {
+    fetchArticle();
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(()=>{
+    allProduct();
+  },[])
 
   
-
-
-useEffect(() => {
-  fetchArticle();
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
 
   return (
     <>
@@ -27,7 +75,23 @@ useEffect(() => {
               <div className="card">
                 <img src={s1} className="card-img-top" alt="card image" />
                 <div className="card-body">
-                  <h5 className="card-title">{items.title}</h5>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <h5 className="card-title">{items.title}</h5>
+                    <BsThreeDots onClick={() => handleMenu(items._id)} />
+                    {menuVisible[items._id] && (
+                      <div className="menu">
+                        <button onClick={() => OpenEditModal(items)}>
+                          Edit
+                        </button>
+
+                        <button onClick={() => handleDeleteMenu(items._id)}>
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
                   <p className="card-text">{items.description}</p>
                   <p className="card-text">
                     {" "}
@@ -40,34 +104,47 @@ useEffect(() => {
                   {cart && cart.some((p) => p._id === items._id) ? (
                     <button
                       className="btn btn-danger"
-                      onClick={() =>
-                        dispatch({
-                          type: "REMOVE_FROM_CART",
-                          payload: items,
-                        })
-                      }
+                      onClick={() => {
+                        showRemoveNotification(),
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: items,
+                          });
+                      }}
                     >
                       Remove From Cart
                     </button>
                   ) : (
                     <button
                       className="btn btn-primary"
-                      onClick={() =>
-                        dispatch({
-                          type: "ADD_TO_CART",
-                          payload: items,
-                        })
-                      }
+                      onClick={() => {
+                        showAddNotification(),
+                          dispatch({
+                            type: "ADD_TO_CART",
+                            payload: items,
+                          });
+                      }}
                     >
                       Add To Cart
                     </button>
                   )}
                 </div>
               </div>
+              {modelVisible &&
+                selectedProduct &&
+                selectedProduct._id === items._id && (
+                  <EditModal
+                    isOpen={modelVisible}
+                    onClose={EditCloseModal}
+                    prod={selectedProduct}
+                    onSave={EditSave}
+                  />
+                )}
             </div>
           ))}
         </div>
       </div>
+ 
       <hr />
 
       <div className="container mt-4 ">
@@ -141,4 +218,3 @@ useEffect(() => {
 };
 
 export default About_Us;
-

@@ -1,36 +1,64 @@
+
 import React, { useState } from "react";
 import f1 from "../assets/form-logo.png";
 import { Link } from "react-router-dom";
-import '../App.css';
+import "../App.css";
 
 const Signup = () => {
-  
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
     cpassword: "",
   });
-  const [showPassword,setShowPassword] = useState(false);
-  const [showConfirmPassword,setShowConfirmPassword] = useState(false);
+  const [errors, setErrors] = useState({}); // Add this state for errors
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (credentials.name.length < 2) {
+      newErrors.name = "Name must be at least 2 characters long";
+    }
+    if (!/\S+@\S+\.\S+/.test(credentials.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (credentials.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+    if (credentials.password !== credentials.cpassword) {
+      newErrors.cpassword = "Passwords do not match";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password } = credentials;
-    const response = await fetch("", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
+    if (validateForm()) {
+      // Only proceed if validation passes
+      const { name, email, password } = credentials;
+      try {
+        const response = await fetch("", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
 
-    const data = await response.json();
-
-    console.log("form submitted", data);
+        const data = await response.json();
+        console.log("form submitted", data);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
+    }
   };
+
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+
   return (
     <>
       <div className="container">
@@ -51,8 +79,11 @@ const Signup = () => {
                   value={credentials.name}
                   onChange={handleChange}
                   type="text"
-                  className="form-control"
+                  className={`form-control ${errors.name ? "is-invalid" : ""}`}
                 />
+                {errors.name && (
+                  <div className="invalid-feedback">{errors.name}</div>
+                )}
               </div>
               <div className="mb-3">
                 <label className="form-label">Email address</label>
@@ -61,8 +92,11 @@ const Signup = () => {
                   value={credentials.email}
                   onChange={handleChange}
                   type="email"
-                  className="form-control"
+                  className={`form-control ${errors.email ? "is-invalid" : ""}`}
                 />
+                {errors.email && (
+                  <div className="invalid-feedback">{errors.email}</div>
+                )}
               </div>
 
               <div className="mb-3">
@@ -73,7 +107,9 @@ const Signup = () => {
                     value={credentials.password}
                     onChange={handleChange}
                     type={showPassword ? "text" : "password"}
-                    className="form-control"
+                    className={`form-control ${
+                      errors.password ? "is-invalid" : ""
+                    }`}
                   />
                   <i
                     className={`fa-solid ${
@@ -87,6 +123,9 @@ const Signup = () => {
                       cursor: "pointer",
                     }}
                   ></i>
+                  {errors.password && (
+                    <div className="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
               </div>
 
@@ -98,7 +137,9 @@ const Signup = () => {
                     value={credentials.cpassword}
                     onChange={handleChange}
                     type={showConfirmPassword ? "text" : "password"}
-                    className="form-control"
+                    className={`form-control ${
+                      errors.cpassword ? "is-invalid" : ""
+                    }`}
                   />
                   <i
                     className={`fa-solid ${
@@ -112,6 +153,9 @@ const Signup = () => {
                       cursor: "pointer",
                     }}
                   ></i>
+                  {errors.cpassword && (
+                    <div className="invalid-feedback">{errors.cpassword}</div>
+                  )}
                 </div>
               </div>
 
@@ -126,30 +170,50 @@ const Signup = () => {
         </div>
       </div>
 
-      <div className="row  footer-body">
+      <div className="row footer-body">
         <div className="footer-logo-design">
           <span>
-            <a href="https://www.facebook.com" target="_blank">
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa-brands fa-facebook-f"></i>
             </a>
           </span>
           <span>
-            <a href="https://www.instagram.com" target="_blank">
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa-brands fa-instagram"></i>
             </a>
           </span>
           <span>
-            <a href="https://www.twitter.com" target="_blank">
+            <a
+              href="https://www.twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa-brands fa-twitter"></i>
             </a>
           </span>
           <span>
-            <a href="https://www.google.com" target="_blank">
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa-brands fa-google"></i>
             </a>
           </span>
           <span>
-            <a href="https://www.linkedin.com" target="_blank">
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fa-brands fa-linkedin-in"></i>
             </a>
           </span>
