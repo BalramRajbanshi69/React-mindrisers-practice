@@ -1,18 +1,23 @@
-require('dotenv').config();
-const express = require("express");
+require("dotenv").config();
+const express = require('express');
 const app = express();
 let PORT = process.env.PORT || 5000;
-console.log('Final port is',PORT);
+console.log(PORT);
 
 
-app.get("/", (req, res) => {
-  res.send("Hello world ! Welcome to express world");
-});
+
+app.get('/',(req,res)=>{
+  res.send("Hello world");
+})
+
 
 app.get("/welcome", (req, res) => {
-  res.send("Welcome Express on backend development");
+  // res.send("Welcome to Express Backend Development");
+  // res.status(404).send("Not Found");
+  res.sendStatus(404);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT:${PORT}`);
-});
+app.listen(PORT,()=>{
+  console.log(`App is running on PORT ${PORT}`);
+  
+})
