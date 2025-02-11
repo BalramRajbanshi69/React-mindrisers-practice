@@ -18,11 +18,22 @@ app.get('/',(req,res)=>{
 })
 
 
-app.get("/welcome", (req, res) => {
+app.get("/profile", (req, res) => {
   res.send("Welcome to Express Backend Development");
   // res.status(404).send("Not Found");
   // res.sendStatus(404);
 });
+
+
+//dynamic routing
+// app.get('/profile/balram',(req,res)=>{
+//   res.send('Welcome balram')
+// })
+
+app.get("/profile/:username", (req, res) => {
+  res.send(`Welcome ${req.params.username}`);
+});
+
 
 app.listen(PORT,()=>{
   console.log(`App is running on PORT ${PORT}`);
