@@ -12,7 +12,7 @@ const logger = require("./middleware/logger");
 dbConnect();
 
 //environment variable and port setup
-let PORT = process.env.PORT ||  8000;
+let PORT = process.env.PORT || 8000;
 console.log(PORT);
 
 // Body parser middleware
@@ -57,7 +57,11 @@ app.post("/upload", upload.single("file"), (req, res) => {
 //Routes
 app.use("/api/posts", require("./routes/posts"));
 app.use("/api/auth", require("./routes/Auth"));
-app.use("/api/product", upload.array('myfile'), require("./routes/ProductRoute"));
+app.use(
+  "/api/product",
+  upload.array("myfile"),
+  require("./routes/ProductRoute")
+);
 
 //middleware
 app.use(logger);
