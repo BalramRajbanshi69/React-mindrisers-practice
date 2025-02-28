@@ -36,7 +36,6 @@
 //      }
 //    };
 
-
 //   return (
 //     <>
 //       <div className="container main-containers">
@@ -131,15 +130,13 @@
 
 // export default Login
 
-
-
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import f1 from "../assets/form-logo.png";
 import "../App.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -203,7 +200,7 @@ const Login = () => {
       // Only proceed if validation passes
       const { email, password } = credentials;
       try {
-        const response = await fetch("", {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -213,6 +210,10 @@ const Login = () => {
 
         const data = await response.json();
         console.log("form submitted", data);
+        if (data) {
+          localStorage.setItem("token", data.authToken);
+          navigate("/");
+        }
       } catch (error) {
         console.error("Error submitting form:", error);
       }
@@ -346,4 +347,3 @@ const Login = () => {
 };
 
 export default Login;
-

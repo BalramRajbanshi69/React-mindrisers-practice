@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-const EditModal = ({prod,isOpen,onClose,onSave}) => {
-  if(!isOpen) return null;
-  const [formData,setFormData] = useState({
+const EditModal = ({ prod, isOpen, onClose, onSave }) => {
+  if (!isOpen) return null;
+  const [formData, setFormData] = useState({
     title: prod.title,
-    description:prod.description,
-    price:prod.price,
-    inStock:prod.inStock
-  })
-  const handleChange = (e)=>{
-    setFormData({...formData, [e.target.name]: e.target.value})
-  }
-  const handleSave = ()=>{
+    description: prod.description,
+    price: prod.price,
+    inStock: prod.inStock,
+  });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSave = () => {
     onSave(formData);
     onClose();
-  }
+  };
   return (
     <div>
       <div
@@ -33,7 +33,7 @@ const EditModal = ({prod,isOpen,onClose,onSave}) => {
             </div>
             <div className="modal-body">
               <form action="">
-                <div className='mb-3'>
+                <div className="mb-3">
                   <label htmlFor="title" className="form-label">
                     Title:
                   </label>
@@ -46,7 +46,7 @@ const EditModal = ({prod,isOpen,onClose,onSave}) => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className='mb-3'>
+                <div className="mb-3">
                   <label htmlFor="price" className="form-label">
                     Price:
                   </label>
@@ -59,7 +59,7 @@ const EditModal = ({prod,isOpen,onClose,onSave}) => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className='mb-3'>
+                <div className="mb-3">
                   <label htmlFor="description" className="form-label">
                     Description:
                   </label>
@@ -72,7 +72,7 @@ const EditModal = ({prod,isOpen,onClose,onSave}) => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className='mb-3'>
+                <div className="mb-3">
                   <label htmlFor="inStock" className="form-label">
                     In Stock:
                   </label>
@@ -88,14 +88,26 @@ const EditModal = ({prod,isOpen,onClose,onSave}) => {
               </form>
             </div>
             <div className="modal-footer">
-              <button type='button' onClick={onClose} className='btn btn-outline-danger'>Close</button>
-              <button type='button' className='btn btn-outline-primary' onClick={handleSave}>Save</button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="btn btn-outline-danger"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-primary"
+                onClick={handleSave}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default EditModal
+export default EditModal;

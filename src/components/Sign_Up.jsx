@@ -1,17 +1,17 @@
-
 import React, { useState } from "react";
 import f1 from "../assets/form-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: "",
     cpassword: "",
   });
-  const [errors, setErrors] = useState({}); // Add this state for errors
+  const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -39,16 +39,23 @@ const Signup = () => {
       // Only proceed if validation passes
       const { name, email, password } = credentials;
       try {
-        const response = await fetch("", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, password }),
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/auth/createuser",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, password }),
+          }
+        );
 
         const data = await response.json();
         console.log("form submitted", data);
+        if (data) {
+          localStorage.setItem("token", data.authToken);
+          navigate("/login");
+        }
       } catch (error) {
         console.error("Error submitting form:", error);
       }

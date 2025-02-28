@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-
 const AddProduct = () => {
-   const baseURL = import.meta.env.VITE_API_URL;
-   const authToken = import.meta.env.VITE_AUTH_TOKEN;
+ 
+  // const baseURL = import.meta.env.VITE_API_URL;
+  // const authToken = import.meta.env.VITE_AUTH_TOKEN;
 
   const [addProduct, setAddProduct] = useState({
     title: "",
@@ -14,12 +14,14 @@ const AddProduct = () => {
     inStock: "",
     image: "",
   });
-  
+
   const handleSubmit = async (e) => {
     console.log("added product");
     e.preventDefault();
 
-const loadingToastId = toast.loading("Adding products.....");
+
+
+    const loadingToastId = toast.loading("Adding products.....");
 
     const formData = new FormData();
     formData.append("title", addProduct.title);
@@ -29,48 +31,46 @@ const loadingToastId = toast.loading("Adding products.....");
     if (addProduct.image) {
       formData.append("myfile", addProduct.image);
     }
-          
-      try {
-        const response = await axios.post(
-          `${baseURL}/product/addproduct`,
-          formData,
-          {
-            headers: {
-              [authToken]: localStorage.getItem("token"),
-            },
-          }
-        );
-        
-         toast.update(loadingToastId, {
-           render: "Added product successfully",
-           type: "success",
-           isLoading: false,
-           autoClose: 4000,
-         });
 
-       
-        console.log(response.data);
-        setAddProduct({
-          title: "",
-          description: "",
-          price: "",
-          inStock: "",
-          image: "",
-        });
+    try {
+      const response = await axios.post(
+        // `${baseURL}/product/addproduct`,
+        "http://localhost:5000/api/product/addproduct",
+        formData,
+        {
+          headers: {
+            // "Content-Type": "multipart/form-data",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
 
-      } catch (error) {
-         toast.update(loadingToastId, {
-           render: "Failed to add products",
-           type: "error",
-           isLoading: false,
-           autoClose: 3000,
-         });
+      toast.update(loadingToastId, {
+        render: "Added product successfully",
+        type: "success",
+        isLoading: false,
+        autoClose: 4000,
+      });
 
-        
-          console.error(error);
-        
-        
-      }
+      console.log(response.data);
+      setAddProduct({
+        title: "",
+        description: "",
+        price: "",
+        inStock: "",
+        image: "",
+      });
+    } catch (error) {
+      toast.update(loadingToastId, {
+        render: "Failed to add products",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      
+
+      console.error(error);
+    }
   };
 
   const handleChange = (e) => {
@@ -180,6 +180,3 @@ const loadingToastId = toast.loading("Adding products.....");
 };
 
 export default AddProduct;
-
-
-

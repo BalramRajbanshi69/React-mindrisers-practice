@@ -65,21 +65,7 @@ const Navbar = () => {
                   User
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="/api">
-                  API
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="/escuelajs">
-                  Escuelajs
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="/reducer">
-                  UseReducer
-                </Link>
-              </li>
+            
               <li className="nav-item">
                 <Link className="nav-link active" to="/addproduct">
                   Add Product
